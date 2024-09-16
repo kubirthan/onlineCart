@@ -4,7 +4,9 @@
   "description": "shopping web app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon backend/server.js",
+    "dev": "set NODE_ENV=development && nodemon backend/server.js",
+    "prod": "set NODE_ENV=production && nodemon backend/server.js"
   },
   "author": "km kubi",
   "license": "ISC",
@@ -12,5 +14,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "mongoose": "^8.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
