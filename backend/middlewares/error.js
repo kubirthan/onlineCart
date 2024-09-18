@@ -12,7 +12,7 @@ module.exports = (err, req, res, next) => {
 
     if(process.env.NODE_ENV == "production"){
         let message = err.message
-        let error = {...err}
+        let error = new Error(message)
 
         if(err.name == "ValidationError"){
             message = Object.values(err.errors).map(value => value.message)
