@@ -19,6 +19,11 @@ module.exports = (err, req, res, next) => {
             error = new Error(message)
         }
 
+        if(err.name == 'CastError') {
+            message = `Resource not found: ${err.path}`
+            error = new Error(message)
+        }
+
         res.status(err.statusCode).json({
             success: false,
             message: error.message || "Internal Server Error",
