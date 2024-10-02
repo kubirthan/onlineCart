@@ -122,3 +122,21 @@ exports.getUserProfile = catchAsyncError(async (req, res, next) => {
     user
    })
 })
+
+//change password
+exports.changePassword = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select('+password')
+
+    //check old password
+    if(!user.isValidPassword(req.body.oldPassword)){
+        return next(new ErrorHandler('old password is incorrect', 401))
+    }
+
+    //assigning new password
+    user.password = req.body.password
+    await user.save()
+
+    res.status(200).json({
+        success: true
+    })
+})
