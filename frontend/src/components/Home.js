@@ -1,6 +1,9 @@
+import MetaData from "./layouts/MetaData";
+
 export default function Home() {
   return (
     <>
+    <MetaData title={'Buy best product'}/>
       <h1 id="products_heading">Latest Products</h1>
 
       <section id="products" className="container mt-5">
