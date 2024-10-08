@@ -1,6 +1,9 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
-const reducer = combineReducers({
+import productsReducer from './slices/productsSlice'
 
+
+const reducer = combineReducers({
+    productsState: productsReducer
 })
 
 const store = configureStore({
