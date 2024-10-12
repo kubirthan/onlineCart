@@ -8,7 +8,6 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
   const resPerPage = 3
   const apiFeatures = new ApiFeatures(Product.find(), req.query).search().filter().paginate(resPerPage);
 
-  return next(new ErrorHandler('unable to send products!', 400))
   const products = await apiFeatures.query; res.status(200).json({
     success: true,
     products
