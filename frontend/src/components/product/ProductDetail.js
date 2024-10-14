@@ -1,9 +1,12 @@
 import { Fragment, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../actions/productAction";
 import { useParams } from "react-router-dom";
+import Loader from "../layouts/Loader";
+import {Carousel} from 'react-bootstrap'
 
 export default function ProductDetail() {
+    const {loading, product} = useSelector((state)=> state.productState)
     const dispatch = useDispatch()
     const {id} = useParams()
 
@@ -14,25 +17,37 @@ export default function ProductDetail() {
 
   return (
     <Fragment>
+        {loading? <Loader/> 
+        :
+    <Fragment>
         <div className="row f-flex justify-content-around">
       <div className="col-12 col-lg-5 img-fluid" id="product_image">
-        <img src="/images/products/3.jpg" alt="sdf" height="500" width="500" />
+        <Carousel pause="hover">
+            {
+               product.images &&  product.images.map(image => 
+                    <Carousel.Item key={image._id}>
+                        <img className="d-block w-100" src={image.image} alt={product.name} height="500" width="500" />
+                    </Carousel.Item>
+                )
+            }
+            </Carousel>
+        
       </div>
 
       <div className="col-12 col-lg-5 mt-5">
-        <h3>Dell Inspiron 3511 Laptop, Intel i3-1115G4, 8GB, 512GB</h3>
-        <p id="product_id">Product # 387874kkfjkf</p>
+        <h3>{product.name}</h3>
+        <p id="product_id">Product # {product._id}</p>
 
         <hr />
 
         <div className="rating-outer">
-          <div className="rating-inner"></div>
+          <div className="rating-inner" style={{width: `${product.ratings/5 * 100}%`}}></div>
         </div>
-        <span id="no_of_reviews">(56 Reviews)</span>
+        <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
 
         <hr />
 
-        <p id="product_price">$456.00</p>
+        <p id="product_price">${product.price}</p>
         <div className="stockCounter d-inline">
           <span className="btn btn-danger minus">-</span>
 
@@ -56,21 +71,16 @@ export default function ProductDetail() {
         <hr/>
 
         <p>
-          Status: <span id="stock_status">In Stock</span>
+          Status: <span className={product.stock > 0 ? 'greenColor' : 'redColor'} id="stock_status">{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span>
         </p>
 
         <hr />
 
         <h4 className="mt-2">Description:</h4>
-        <p>
-          Processor: Intel i5-1235U (3.30 GHz up to 4.40 GHz), 10 Cores & 12MB
-          Cache RAM & Storage: 8GB, 8Gx1, DDR4, 2666MHz Ach & 512GB SSD Display
-          & Graphics: 15.6" FHD WVA AG 120Hz 250 nits Narrow Border & Integrated
-          Graphics
-        </p>
+        <p>{product.description} </p>
         <hr />
         <p id="product_seller mb-3">
-          Sold by: <strong>Amazon</strong>
+          Sold by: <strong>{product.seller}</strong>
         </p>
 
         <button
@@ -148,6 +158,9 @@ export default function ProductDetail() {
         </div>
       </div>
     </div>
+    </Fragment>
+    
+        }
     </Fragment>
   );
 }

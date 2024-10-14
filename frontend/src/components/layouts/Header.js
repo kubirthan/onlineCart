@@ -4,7 +4,7 @@ export default function Header() {
       <div className='container '>
       <div className="col-12 col-md-3">
         <div className="navbar-brand">
-          <img width="150px" src="./images/logo.png" />
+          <img width="150px" src="/images/logo.png" />
         </div>
       </div>
 
