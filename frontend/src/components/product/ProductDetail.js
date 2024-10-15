@@ -4,6 +4,7 @@ import { getProduct } from "../../actions/productAction";
 import { useParams } from "react-router-dom";
 import Loader from "../layouts/Loader";
 import {Carousel} from 'react-bootstrap'
+import MetaData from "../layouts/MetaData";
 
 export default function ProductDetail() {
     const {loading, product} = useSelector((state)=> state.productState)
@@ -12,7 +13,7 @@ export default function ProductDetail() {
 
     useEffect(()=>{
         dispatch(getProduct(id))
-    },[])
+    },[dispatch, id])
 
 
   return (
@@ -20,6 +21,7 @@ export default function ProductDetail() {
         {loading? <Loader/> 
         :
     <Fragment>
+        <MetaData title={product.name}/>
         <div className="row f-flex justify-content-around">
       <div className="col-12 col-lg-5 img-fluid" id="product_image">
         <Carousel pause="hover">
