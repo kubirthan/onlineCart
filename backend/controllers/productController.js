@@ -6,13 +6,24 @@ const ErrorHandler = require("../utils/errorHandler");
 //Get all products - /api/v1/products
 exports.getProducts = catchAsyncError(async (req, res, next) => {
   const resPerPage = 3
-  const apiFeatures = new ApiFeatures(Product.find(), req.query).search().filter().paginate(resPerPage);
 
-  const products = await apiFeatures.query;
+  let buildQuery = () => {
+    return new ApiFeatures(Product.find(), req.query).search().filter()
+  }
+
+  const filteredProductsCount = await buildQuery().query.countDocuments({})
   const totalProductsCount = await Product.countDocuments({})
+  let productsCount = totalProductsCount
+
+  if(filteredProductsCount !== totalProductsCount){
+    productsCount = filteredProductsCount
+  }
+
+  const products = await buildQuery().paginate(resPerPage).query;
+
    res.status(200).json({
     success: true,
-    count: totalProductsCount,
+    count: productsCount,
     resPerPage,
     products
   });
