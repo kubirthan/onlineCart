@@ -22,6 +22,7 @@ export default function ProductSeach() {
   const [price, setPrice] = useState([1,1000])
   const [priceChanged, setPriceChanged] = useState(price)
   const [category, setCategory] = useState(null)
+  const [rating, setRating] = useState(0)
 
   const categories = ['Electronics',
                 'Mobile Phones',
@@ -48,8 +49,8 @@ export default function ProductSeach() {
       });
     }
 
-    dispatch(getProducts(keyword,price,category, currentPage));
-  }, [error, dispatch, currentPage, keyword, priceChanged, category]);
+    dispatch(getProducts(keyword,price,category,rating, currentPage));
+  }, [error, dispatch, currentPage, keyword, priceChanged, category, rating]);
 
   return (
     <Fragment>
@@ -99,6 +100,34 @@ export default function ProductSeach() {
                                     setCategory(category)
                                 }}>
                                     {category}
+                                </li>
+                            )
+                        }
+                        
+                    </ul>
+                </div>
+                <hr className="my-5"/>
+                {/* ratings filter */}
+                <div className="mt-5">
+                    <h4 className="mb-3">Ratings</h4>
+                    <ul className="pl-0">
+                        {
+                            [5,4,3,2,1].map(star=> 
+                                <li style={{
+                                    cursor:"pointer",
+                                    listStyleType:"none"
+                                }} key={star}
+                                onClick={() => {
+                                    setRating(star)
+                                }}>
+                                    <div className="rating-outer">
+                                        <div className="rating-inner"
+                                        style={{
+                                            width:`${star * 20}%`
+                                        }}>
+
+                                        </div>
+                                    </div>
                                 </li>
                             )
                         }
