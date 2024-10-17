@@ -21,6 +21,21 @@ export default function ProductSeach() {
   const { keyword } = useParams();
   const [price, setPrice] = useState([1,1000])
   const [priceChanged, setPriceChanged] = useState(price)
+  const [category, setCategory] = useState(null)
+
+  const categories = ['Electronics',
+                'Mobile Phones',
+                'Laptops',
+                'Accessories',
+                'Headphones',
+                'Food',
+                'Books',
+                'Clothes/Health',
+                'Beauty/health',
+                'Sports',
+                'Outdoor',
+                'Home'
+            ]
 
   const setCurrentPageNo = (pageNo) => {
     setCurrentPage(pageNo);
@@ -33,8 +48,8 @@ export default function ProductSeach() {
       });
     }
 
-    dispatch(getProducts(keyword,price, currentPage));
-  }, [error, dispatch, currentPage, keyword, priceChanged]);
+    dispatch(getProducts(keyword,price,category, currentPage));
+  }, [error, dispatch, currentPage, keyword, priceChanged, category]);
 
   return (
     <Fragment>
@@ -47,6 +62,7 @@ export default function ProductSeach() {
           <section id="products" className="container mt-5">
             <div className="row">
               <div className="col-6 col-md mb-5 mt-5">
+                {/* Price Filter */}
                 <div className="px-5" onMouseUp={()=> setPriceChanged(price)}>
                     <Slider 
                     range={true}
@@ -67,6 +83,27 @@ export default function ProductSeach() {
                             <Tooltip overlay={`$${renderProps.props['aria-valuenow']}`}><div {...renderProps.props}></div></Tooltip>
                         )
                     }}/>
+                </div>
+                    <hr className="my-5"/>
+                {/* Category Filter */}
+                <div className="mt-5">
+                    <h3 className="mb-3">Categories</h3>
+                    <ul className="pl-0">
+                        {
+                            categories.map(category => 
+                                <li style={{
+                                    cursor:"pointer",
+                                    listStyleType:"none"
+                                }} key={category}
+                                onClick={() => {
+                                    setCategory(category)
+                                }}>
+                                    {category}
+                                </li>
+                            )
+                        }
+                        
+                    </ul>
                 </div>
               </div>
               <div className="col-6 col-md-9">
