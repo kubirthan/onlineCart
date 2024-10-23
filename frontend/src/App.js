@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import ProductDetail from "./components/product/ProductDetail";
 import ProductSeach from "./components/product/ProductSeach";
 import Login from "./components/user/Login";
+import Register from "./components/user/Register";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/search/:keyword" element={<ProductSeach/>}/>
             <Route path="/product/:id" element={<ProductDetail/>} />
             <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
           </Routes>
           <Footer />
           </div>
