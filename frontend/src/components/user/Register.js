@@ -102,7 +102,7 @@ export default function Register(){
                           <img
                               src={avatarPreview}
                               className='rounded-circle'
-                              alt='image'
+                              alt='avatar'
                           />
                       </figure>
                   </div>
