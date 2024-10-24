@@ -91,7 +91,8 @@ const authSlice = createSlice({
 
 const {actions, reducer} = authSlice
 
-export const {loginRequest, 
+export const {
+    loginRequest, 
     loginSuccess, 
     loginFail, 
     clearError, 
