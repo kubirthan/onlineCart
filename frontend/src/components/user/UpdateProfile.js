@@ -57,7 +57,7 @@ export default function UpdateProfile(){
                 onOpen: () => {dispatch(clearAuthError)}
             })
         }
-    },[user, isUpdated, error])
+    },[user, isUpdated, error, dispatch])
 
     return (
         <div className="row wrapper">
