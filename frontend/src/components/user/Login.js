@@ -62,7 +62,7 @@ export default function Login() {
                 />
               </div>
 
-              <Link  className="float-right mb-4">
+              <Link to={"/password/forgot" }  className="float-right mb-4">
                 Forgot Password?
               </Link>
 
