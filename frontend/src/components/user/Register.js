@@ -19,7 +19,7 @@ export default function Register(){
 
     const onChange = (e) => {
         if(e.target.name === "avatar"){
-            const reader = new FileReader()
+            const reader = new FileReader
             reader.onload = () => {
                 if(reader.readyState === 2){
                     setAvatarPreview(reader.result)
@@ -41,7 +41,7 @@ export default function Register(){
         formData.append('email',userData.email)
         formData.append('password', userData.password)
         formData.append('avatar', avatar)
-        dispatch(register(userData))
+        dispatch(register(formData))
     }
 
     useEffect(()=> {

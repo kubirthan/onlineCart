@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
 export default function Profile(){
 
@@ -10,9 +11,9 @@ export default function Profile(){
             <figure className='avatar avatar-profile'>
                 <img className="rounded-circle img-fluid" src={user.avatar??'./images/default_avatar.png'} alt='' />
             </figure>
-            <a href="#" id="edit_profile" className="btn btn-primary btn-block my-5">
+            <Link  to={'/myprofile/update'} id="edit_profile" className="btn btn-primary btn-block my-5">
                 Edit Profile
-            </a>
+            </Link>
         </div>
  
         <div className="col-12 col-md-5">

@@ -27,18 +27,18 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
     const {email, password} = req.body
 
     if(!email || !password){
-        return next(new ErrorHandler('Please enter email or password'))
+        return next(new ErrorHandler('Please enter email or password', 400))
     }
 
     //finding the user database
     const user = await User.findOne({email}).select('+password')
 
     if(!user){
-        return next(new ErrorHandler('Invalid email or password'))
+        return next(new ErrorHandler('Invalid email or password', 401))
     }
 
     if(!await user.isValidPassword(password)){
-        return next(new ErrorHandler('Invalid email or password'))
+        return next(new ErrorHandler('Invalid email or password', 401))
     }
 
     sendToken(user, 201, res)
@@ -148,12 +148,18 @@ exports.changePassword = catchAsyncError(async (req, res, next) => {
 
 //Update profile
 exports.updateProfile = catchAsyncError(async (req, res, next)=> {
-    const newUserDate = {
+    let newUserData = {
         name: req.body.name,
         email: req.body.email
     }
 
-    const user = await User.findByIdAndUpdate(req.user.id, newUserDate,{
+    let avatar
+    if(req.file){
+        avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
+        newUserData = {...newUserData, avatar}
+    }
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData,{
             new: true,
             runValidators: true
         }
