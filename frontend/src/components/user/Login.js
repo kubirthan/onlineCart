@@ -31,7 +31,7 @@ export default function Login() {
             })
             return
         }
-    },[error,isAuthenticated, dispatch, navigate])
+    },[error,isAuthenticated,dispatch, navigate])
 
   return (
     <>
