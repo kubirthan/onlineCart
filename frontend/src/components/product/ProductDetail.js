@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Loader from "../layouts/Loader";
 import {Carousel} from 'react-bootstrap'
 import MetaData from "../layouts/MetaData";
+import { addCartItem } from "../../actions/cartActions";
 
 export default function ProductDetail() {
     const {loading, product} = useSelector((state)=> state.productState)
@@ -14,14 +15,14 @@ export default function ProductDetail() {
 
     const increaseQty = () => {
       const count = document.querySelector('.count')
-      if(product.stock ==0 && count.valueAsNumber >= product.stock) return;
+      if(product.stock ===0 || count.valueAsNumber >= product.stock) return;
       const qty = count.valueAsNumber + 1;
       setQuantity(qty)
     }
 
     const decreaseQty = () => {
       const count = document.querySelector('.count')
-      if(count.valueAsNumber == 1) return;
+      if(count.valueAsNumber === 1) return;
       const qty = count.valueAsNumber - 1
       setQuantity(qty)
     }
@@ -81,7 +82,8 @@ export default function ProductDetail() {
           type="button"
           id="cart_btn"
           className="btn btn-primary d-inline ml-4"
-          disabled={product.stock==0?true:false}
+          disabled={product.stock===0?true:false}
+          onClick={()=>dispatch(addCartItem(product._id, quantity))}
         >
           Add to Cart
         </button>
