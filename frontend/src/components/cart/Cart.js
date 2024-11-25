@@ -1,12 +1,27 @@
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {Link} from 'react-router-dom'
+import { decreaseCartItemQty, increaseCartItemQty, removeItemFromCart} from "../../slices/cartSlice";
+
 
 export default function Cart() {
   const { items } = useSelector((state) => state.cartState);
+  const dispatch = useDispatch()
+
+  const increaseQty = (item) => {
+    const count = item.quantity
+    if(item.stock ===0 || count >= item.stock) return
+    dispatch(increaseCartItemQty(item.product))
+  }
+
+  const decreaseQty = (item) => {
+    const count = item.quantity
+    if(count === 1) return
+    dispatch(decreaseCartItemQty(item.product))
+  }
   return (
     <Fragment>
-      {items.length == 0 ? (
+      {items.length === 0 ? (
         <h2 className="mt-5">Your cart is Empty</h2>
       ) : (
         <Fragment>
@@ -43,7 +58,7 @@ export default function Cart() {
       
                         <div className="col-4 col-lg-3 mt-4 mt-lg-0">
                           <div className="stockCounter d-inline">
-                            <span className="btn btn-danger minus">-</span>
+                            <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
                             <input
                               type="number"
                               className="form-control count d-inline"
@@ -51,13 +66,14 @@ export default function Cart() {
                               readOnly
                             />
       
-                            <span className="btn btn-primary plus">+</span>
+                            <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
                           </div>
                         </div>
       
                         <div className="col-4 col-lg-1 mt-4 mt-lg-0">
                           <i
                             id="delete_cart_item"
+                            onClick={() => dispatch(removeItemFromCart(item.product))}
                             className="fa fa-trash btn btn-danger"
                           ></i>
                         </div>
