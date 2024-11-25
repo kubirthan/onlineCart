@@ -94,11 +94,11 @@ export default function Cart() {
                 <hr />
                 <p>
                   Subtotal:{" "}
-                  <span className="order-summary-values">1 (Units)</span>
+                  <span className="order-summary-values">{items.reduce((acc , item)=>(acc + item.quantity),0)} (Units)</span>
                 </p>
                 <p>
                   Est. total:{" "}
-                  <span className="order-summary-values">$245.67</span>
+                  <span className="order-summary-values">${items.reduce((acc, item)=>(acc + item.quantity * item.price),0)}</span>
                 </p>
 
                 <hr />
