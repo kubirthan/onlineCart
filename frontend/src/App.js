@@ -20,6 +20,7 @@ import UpdatePassword from "./components/user/UpdatePassword";
 import ForgotPassword from "./components/user/ForgotPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import Cart from "./components/cart/Cart";
+import Shipping from "./components/cart/Shipping";
 
 
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="/password/forgot" element={<ForgotPassword/>}/>
             <Route path="/password/reset/:token" element={<ResetPassword/>}/>
             <Route path="/cart" element={<Cart/>}/>
+            <Route path="/shipping" element={<ProtectedRoute><Shipping/></ProtectedRoute>} />
           </Routes>
           <Footer/>
           </div>
