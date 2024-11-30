@@ -4,6 +4,22 @@ import {countries} from 'countries-list'
 import { useNavigate } from "react-router-dom"
 import { saveShippingInfo } from "../../slices/cartSlice"
 import CheckoutSteps from "./CheckoutSteps"
+import { toast } from "react-toastify"
+
+export const ValidateShipping = (shippingInfo, navigate) => {
+    if(
+        !shippingInfo.address||
+        !shippingInfo.state||
+        !shippingInfo.country||
+        !shippingInfo.phoneNo||
+        !shippingInfo.postalCode
+    ){
+        toast.error('Please fill the shipping information',{
+            position:'bottom-center'
+        })
+        navigate('/shipping')
+    }
+}
 
 export default function Shipping(){
 
@@ -58,7 +74,7 @@ export default function Shipping(){
                 </div>
 
                 <div className="form-group">
-                    <label htmlhtmlFor="phone_field">Phone No</label>
+                    <label htmlFor="phone_field">Phone No</label>
                     <input
                         type="phone"
                         id="phone_field"
