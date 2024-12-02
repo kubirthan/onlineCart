@@ -11,6 +11,8 @@ import { ValidateShipping } from "../cart/Shipping";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
+import { createOrder } from "../../actions/orderActions";
+import { clearError as clearOrderError } from "../../slices/authSlice";
 
 export default function Payment() {
   const stripe = useStripe();
@@ -20,6 +22,7 @@ export default function Payment() {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const { user } = useSelector(state => state.authState);
   const { items:cartItems, shippingInfo  } = useSelector(  state => state.cartState);
+  const {error:orderError} = useSelector(state => state.orderState)
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
     shipping: {
@@ -48,6 +51,13 @@ export default function Payment() {
 
   useEffect(() => {
     ValidateShipping(shippingInfo, navigate);
+    if(orderError){
+        toast(orderError,{
+            position: 'bottom-center',
+            type: 'error',
+            onOpen: ()=> {dispatch(clearOrderError())}
+        })
+    }
   }, []);
 
   const submitHandler = async (e) => {
@@ -78,7 +88,12 @@ export default function Payment() {
                     type:'success',
                     position:'bottom-center'
                 })
+                order.paymentInfo = {
+                    id: (await result).paymentIntent.id,
+                    status: (await result).paymentIntent.status
+                }
                 dispatch(orderCompleted())
+                dispatch(createOrder(order))
                 navigate('/order/success')
             }else {
                 toast('please try again',{
