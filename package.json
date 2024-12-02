@@ -12,8 +12,6 @@
   "author": "km kubi",
   "license": "ISC",
   "dependencies": {
-    "@stripe/react-stripe-js": "^3.0.0",
-    "@stripe/stripe-js": "^5.2.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "crypto": "^1.0.1",

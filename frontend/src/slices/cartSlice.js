@@ -68,12 +68,22 @@ const cartSlice = createSlice({
                 ...state,
                 shippingInfo: action.payload
             }
+        },
+        orderCompleted(state, action){
+            localStorage.removeItem('shippingInfo')
+            localStorage.removeItem('cartItems')
+            sessionStorage.removeItem('orderInfo')
+            return {
+                items: [],
+                loading: false,
+                shippingInfo: {}
+            }
         }
     }
 })
 
 const {actions, reducer} = cartSlice
 
-export const {addCartItemRequest, addCartItemSuccess, increaseCartItemQty, decreaseCartItemQty, removeItemFromCart, saveShippingInfo} = actions
+export const {addCartItemRequest, addCartItemSuccess, increaseCartItemQty, decreaseCartItemQty, removeItemFromCart, saveShippingInfo,orderCompleted} = actions
 
 export default reducer

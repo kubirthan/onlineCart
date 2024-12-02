@@ -35,7 +35,7 @@ export default function ConfirmOrder(){
             <CheckoutSteps shipping confirmOrder/>
             <MetaData title={'confirm order'}/>
               <div className="row d-flex justify-content-between">
-            <div className="col-12 col-lg-8 mt-5 order-confirm">
+              <div className="col-12 col-lg-8 mt-5 order-confirm">
 
                 <h4 className="mb-3">Shipping Info</h4>
                 <p><b>Name:</b> {user.name}</p>
