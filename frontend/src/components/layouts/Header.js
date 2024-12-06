@@ -17,7 +17,6 @@ export default function Header() {
 
   return (
     <nav className="navbar row">
-      <div className='container '>
       <div className="col-12 col-md-3">
         <div className="navbar-brand">
           <Link to={'/'}>
@@ -41,6 +40,10 @@ export default function Header() {
                 <span>{user.name}</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
+                {
+                  user.role === 'admin' && <Dropdown.Item onClick={() => {navigate('/admin/dashboard')}} className="text-dark">Dashboard</Dropdown.Item>
+                
+                }
                 <Dropdown.Item onClick={() => {navigate('/myprofile')}} className="text-dark">Profile</Dropdown.Item>
                 <Dropdown.Item onClick={() => {navigate('/orders')}} className="text-dark">Orders</Dropdown.Item>
                 <Dropdown.Item onClick={logoutHandler} className="text-danger">Logout</Dropdown.Item>
@@ -60,7 +63,6 @@ export default function Header() {
         <span className="ml-1" id="cart_count">
           {cartItems.length}
         </span>
-      </div>
       </div>
     </nav>
   );
