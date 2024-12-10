@@ -65,6 +65,34 @@ const productSlice = createSlice({
                 ...state,
                 product: {}
             }
+        },
+        newProductRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            } 
+        },
+        newProductSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                product: action.payload.product,
+                isProductCreated: true
+            }
+        },
+        newProductFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                isProductCreated: false
+            }
+        },
+        clearProductCreated(state, action){
+            return {
+                ...state,
+                isProductCreated: false
+            }
         }
     }
 })
@@ -80,7 +108,11 @@ export const {
     createReviewRequest,
     clearError,
     clearReviewSubmitted,
-    clearProduct
+    clearProduct,
+    newProductFail,
+    newProductRequest,
+    newProductSuccess,
+    clearProductCreated
 } = actions
 
 export default reducer
