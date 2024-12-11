@@ -25,5 +25,6 @@ router.route('/review').delete(deleteReview)
 //admin
 router.route('/admin/product/new').post(isAuthenticatedUser,authorizeRoles('admin'), upload.array('images'),newProduct)
 router.route('/admin/products').get(isAuthenticatedUser, authorizeRoles('admin'),getAdminProducts)
+router.route('/admin/product/:id').delete(isAuthenticatedUser, authorizeRoles('admin'),deleteProduct)
 
 module.exports = router
