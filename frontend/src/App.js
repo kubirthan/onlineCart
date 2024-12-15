@@ -37,6 +37,7 @@ import OrderList from "./components/admin/OrderList";
 import UpdateOrder from "./components/admin/UpdateOrder";
 import UserList from "./components/admin/UserList";
 import UpdateUser from "./components/admin/UpdateUser";
+import ReviewsList from "./components/admin/ReviewsList";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -155,6 +156,7 @@ function App() {
               <Route path="/admin/order/:id" element={<ProtectedRoute isAdmin={true}><UpdateOrder/></ProtectedRoute>} />
               <Route path="/admin/users" element={<ProtectedRoute isAdmin={true}><UserList/></ProtectedRoute>} />
               <Route path="/admin/user/:id" element={<ProtectedRoute isAdmin={true}><UpdateUser/></ProtectedRoute>} />
+              <Route path="/admin/reviews" element={<ProtectedRoute isAdmin={true}><ReviewsList/></ProtectedRoute>} />
             </Routes>
             <Footer />
         </HelmetProvider>
