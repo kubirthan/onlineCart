@@ -4,6 +4,7 @@ import productReducer from './slices/productSlice'
 import authReducer from './slices/authSlice'
 import cartReducer from './slices/cartSlice'
 import orderReducer from './slices/orderSlice'
+import userSlice from './slices/userSlice'
 
 
 const reducer = combineReducers({
@@ -11,7 +12,8 @@ const reducer = combineReducers({
     productState: productReducer,
     authState: authReducer,
     cartState: cartReducer,
-    orderState: orderReducer
+    orderState: orderReducer,
+    userState: userSlice
 })
 
 const store = configureStore({
